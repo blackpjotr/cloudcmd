@@ -1,5 +1,6 @@
-FROM node:lts-buster
+FROM node:lts-bookworm
 LABEL maintainer="Coderaiser"
+LABEL org.opencontainers.image.source="https://github.com/coderaiser/cloudcmd"
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
@@ -15,9 +16,9 @@ COPY . /usr/src/app
 
 WORKDIR /
 
-ENV cloudcmd_terminal true
-ENV cloudcmd_terminal_path gritty
-ENV cloudcmd_open false
+ENV cloudcmd_terminal=true
+ENV cloudcmd_terminal_path=gritty
+ENV cloudcmd_open=false
 
 EXPOSE 8000
 

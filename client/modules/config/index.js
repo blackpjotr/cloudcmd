@@ -137,6 +137,7 @@ async function fillTemplate() {
         editor,
         packer,
         columns,
+        theme,
         configAuth,
         ...obj
     } = input.convert(config);
@@ -144,6 +145,7 @@ async function fillTemplate() {
     obj[`${editor}-selected`] = 'selected';
     obj[`${packer}-selected`] = 'selected';
     obj[`${columns}-selected`] = 'selected';
+    obj[`${theme}-selected`] = 'selected';
     obj.configAuth = configAuth ? '' : 'hidden';
     
     const innerHTML = rendy(Template, obj);
@@ -223,7 +225,8 @@ function onAuthChange(checked) {
     const elUsername = input.getElementByName('username', Element);
     const elPassword = input.getElementByName('password', Element);
     
-    elUsername.disabled = elPassword.disabled = !checked;
+    elUsername.disabled = !checked;
+    elPassword.disabled = !checked;
 }
 
 function onNameChange(name) {

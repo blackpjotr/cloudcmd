@@ -8,11 +8,19 @@ const noop = (req, res, next) => {
 
 noop.listen = noop;
 
-module.exports = (config, arg) => {
+function _getModule(a) {
+    return require(a);
+}
+
+module.exports = (config, arg, overrides = {}) => {
+    const {
+        getModule = _getModule,
+    } = overrides;
+    
     if (!config('terminal'))
         return noop;
     
-    const [e, terminalModule] = tryCatch(require, config('terminalPath'));
+    const [e, terminalModule] = tryCatch(getModule, config('terminalPath'));
     
     if (!e && !arg)
         return terminalModule;

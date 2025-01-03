@@ -1,8 +1,5 @@
-import {
-    run,
-    cutEnv,
-} from 'madrun';
 import process from 'node:process';
+import {run, cutEnv} from 'madrun';
 
 const testEnv = {
     THREAD_IT_COUNT: 0,
@@ -28,16 +25,15 @@ export default {
     }),
     'build:start': () => run(['build:client', 'start']),
     'build:start:dev': () => run(['build:client:dev', 'start:dev']),
-    'lint:all': () => run(['lint:progress', 'spell']),
+    'lint:all': () => run('lint:progress'),
     'lint': () => 'putout .',
     'lint:progress': () => run('lint', '-f progress'),
     'watch:lint': () => 'nodemon -w client -w server -w test -w common -w .webpack -x "putout -s"',
     'fresh:lint': () => run('lint', '--fresh'),
     'lint:fresh': () => run('lint', '--fresh'),
-    'spell': () => 'yaspeller . || true',
     'fix:lint': () => run('lint', '--fix'),
     'lint:stream': () => run('lint', '-f stream'),
-    'test': () => [testEnv, `tape 'test/**/*.js' '{client,static,common,server}/**/*.spec.js' -f fail`],
+    'test': () => [testEnv, `tape 'test/**/*.{js,mjs}' '{client,static,common,server}/**/*.spec.{js,mjs}' -f fail`],
     'test:client': () => `tape 'test/client/**/*.js'`,
     'test:server': () => `tape 'test/**/*.js' 'server/**/*.spec.js' 'common/**/*.spec.js'`,
     'wisdom': () => run(['lint:all', 'build', 'test']),

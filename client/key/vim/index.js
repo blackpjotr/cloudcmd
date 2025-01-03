@@ -4,125 +4,123 @@
 /* global DOM */
 const vim = require('./vim');
 const finder = require('./find');
+const {
+    setCurrent,
+    selectFileNotParent,
+} = require('./set-current');
 
-const Info = DOM.CurrentInfo;
 const {Dialog} = DOM;
 
-module.exports = async (key, event) => {
-    const operations = getOperations(event);
+const DEPS = {
+    ...DOM,
+    ...CloudCmd,
+};
+
+module.exports = async (key, event, deps = DEPS) => {
+    const operations = getOperations(event, deps);
     await vim(key, operations);
 };
 
-const getOperations = (event) => ({
-    escape: DOM.unselectFiles,
+const getOperations = (event, deps) => {
+    const {
+        Info = DOM.CurrentInfo,
+        Operation,
+        unselectFiles,
+        setCurrentFile,
+        setCurrentByName,
+        getCurrentName,
+        toggleSelectedFile,
+        Buffer = {},
+    } = deps;
     
-    remove: () => {
-        CloudCmd.Operation.show('delete');
-    },
-    
-    makeDirectory: () => {
-        event.stopImmediatePropagation();
-        event.preventDefault();
-        DOM.promptNewDir();
-    },
-    
-    makeFile: () => {
-        event.stopImmediatePropagation();
-        event.preventDefault();
-        DOM.promptNewFile();
-    },
-    
-    terminal: () => {
-        CloudCmd.Terminal.show();
-    },
-    
-    edit: () => {
-        CloudCmd.EditFileVim.show();
-    },
-    
-    copy: () => {
-        DOM.Buffer.copy();
-        DOM.unselectFiles();
-    },
-    
-    select: () => {
-        const current = Info.element;
-        DOM.toggleSelectedFile(current);
-    },
-    
-    paste: DOM.Buffer.paste,
-    
-    moveNext: ({count, isVisual, isDelete}) => {
-        setCurrent('next', {
-            count,
-            isVisual,
-            isDelete,
-        });
-    },
-    
-    movePrevious: ({count, isVisual, isDelete}) => {
-        setCurrent('previous', {
-            count,
-            isVisual,
-            isDelete,
-        });
-    },
-    
-    find: async () => {
-        event.preventDefault();
-        const [, value] = await Dialog.prompt('Find', '');
+    return {
+        escape: unselectFiles,
         
-        if (!value)
-            return;
+        remove: () => {
+            Operation.show('delete');
+        },
         
-        const names = Info.files.map(DOM.getCurrentName);
-        const [result] = finder.find(value, names);
+        makeDirectory: () => {
+            event.stopImmediatePropagation();
+            event.preventDefault();
+            DOM.promptNewDir();
+        },
         
-        DOM.setCurrentByName(result);
-    },
-    
-    findNext: () => {
-        const name = finder.findNext();
-        DOM.setCurrentByName(name);
-    },
-    
-    findPrevious: () => {
-        const name = finder.findPrevious();
-        DOM.setCurrentByName(name);
-    },
-});
+        makeFile: () => {
+            event.stopImmediatePropagation();
+            event.preventDefault();
+            DOM.promptNewFile();
+        },
+        
+        terminal: () => {
+            CloudCmd.Terminal.show();
+        },
+        
+        edit: () => {
+            CloudCmd.EditFileVim.show();
+        },
+        
+        copy: () => {
+            Buffer.copy();
+            unselectFiles();
+        },
+        
+        select: () => {
+            const current = Info.element;
+            toggleSelectedFile(current);
+        },
+        
+        paste: Buffer.paste,
+        
+        moveNext: ({count, isVisual, isDelete}) => {
+            setCurrent('next', {
+                count,
+                isVisual,
+                isDelete,
+            }, {
+                Info,
+                setCurrentFile,
+                unselectFiles,
+                Operation,
+            });
+        },
+        
+        movePrevious: ({count, isVisual, isDelete}) => {
+            setCurrent('previous', {
+                count,
+                isVisual,
+                isDelete,
+            }, {
+                Info,
+                setCurrentFile,
+                unselectFiles,
+                Operation,
+            });
+        },
+        
+        find: async () => {
+            event.preventDefault();
+            const [, value] = await Dialog.prompt('Find', '');
+            
+            if (!value)
+                return;
+            
+            const names = Info.files.map(getCurrentName);
+            const [result] = finder.find(value, names);
+            
+            setCurrentByName(result);
+        },
+        
+        findNext: () => {
+            const name = finder.findNext();
+            setCurrentByName(name);
+        },
+        
+        findPrevious: () => {
+            const name = finder.findPrevious();
+            setCurrentByName(name);
+        },
+    };
+};
 
-module.exports.selectFile = selectFile;
-
-function selectFile(current) {
-    const name = DOM.getCurrentName(current);
-    
-    if (name === '..')
-        return;
-    
-    DOM.selectFile(current);
-}
-
-function setCurrent(sibling, {count, isVisual, isDelete}) {
-    let current = Info.element;
-    const select = isVisual ? selectFile : DOM.unselectFile;
-    
-    select(current);
-    
-    const position = `${sibling}Sibling`;
-    
-    for (let i = 0; i < count; i++) {
-        const next = current[position];
-        
-        if (!next)
-            break;
-        
-        current = next;
-        select(current);
-    }
-    
-    DOM.setCurrentFile(current);
-    
-    if (isDelete)
-        CloudCmd.Operation.show('delete');
-}
+module.exports.selectFile = selectFileNotParent;

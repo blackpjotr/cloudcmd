@@ -1,18 +1,16 @@
 #!/usr/bin/env node
 
+import process from 'node:process';
 import {createRequire} from 'node:module';
 import {promisify} from 'node:util';
 import tryToCatch from 'try-to-catch';
 import {createSimport} from 'simport';
 import parse from 'yargs-parser';
-import process from 'node:process';
 import exit from '../server/exit.js';
-import {
-    createConfig,
-    configPath,
-} from '../server/config.js';
+import {createConfig, configPath} from '../server/config.js';
 import env from '../server/env.js';
 import prefixer from '../server/prefixer.js';
+import * as validate from '../server/validate.mjs';
 
 process.on('unhandledRejection', exit);
 
@@ -64,6 +62,7 @@ const yargsOptions = {
         'terminal-path',
         'terminal-command',
         'columns',
+        'theme',
         'import-url',
         'import-token',
         'export-token',
@@ -87,6 +86,7 @@ const yargsOptions = {
         'confirm-copy',
         'confirm-move',
         'show-config',
+        'show-dot-files',
         'show-file-name',
         'vim',
         'keys-panel',
@@ -115,6 +115,7 @@ const yargsOptions = {
         'contact': choose(env.bool('contact'), config('contact')),
         'terminal': choose(env.bool('terminal'), config('terminal')),
         'columns': env('columns') || config('columns') || '',
+        'theme': env('theme') || config('theme') || '',
         'vim': choose(env.bool('vim'), config('vim')),
         'log': config('log'),
         
@@ -124,6 +125,7 @@ const yargsOptions = {
         'export': choose(env.bool('export'), config('export')),
         
         'prefix-socket': config('prefixSocket'),
+        'show-dot-files': choose(env.bool('show_dot_files'), config('showDotFiles')),
         'show-file-name': choose(env.bool('show_file_name'), config('showFileName')),
         'sync-console-path': choose(env.bool('sync_console_path'), config('syncConsolePath')),
         'config-dialog': choose(env.bool('config_dialog'), config('configDialog')),
@@ -164,7 +166,7 @@ else
     main();
 
 async function main() {
-    const validateArgs = await simport('@putout/cli-validate-args');
+    const {validateArgs} = await simport('@putout/cli-validate-args');
     
     const error = await validateArgs(args, [
         ...yargsOptions.boolean,
@@ -177,6 +179,9 @@ async function main() {
     if (args.repl)
         repl();
     
+    validate.columns(args.columns);
+    validate.theme(args.theme);
+    
     port(args.port);
     
     config('name', args.name);
@@ -186,6 +191,7 @@ async function main() {
     config('username', args.username);
     config('console', args.console);
     config('syncConsolePath', args.syncConsolePath);
+    config('showDotFiles', args.showDotFiles);
     config('showFileName', args.showFileName);
     config('contact', args.contact);
     config('terminal', args.terminal);
@@ -197,6 +203,7 @@ async function main() {
     config('prefixSocket', prefixer(args.prefixSocket));
     config('root', args.root || '/');
     config('vim', args.vim);
+    config('theme', args.theme);
     config('columns', args.columns);
     config('log', args.log);
     config('confirmCopy', args.confirmCopy);
@@ -224,6 +231,7 @@ async function main() {
         prefix: config('prefix'),
         prefixSocket: config('prefixSocket'),
         columns: config('columns'),
+        theme: config('theme'),
     };
     
     const password = env('password') || args.password;
@@ -231,13 +239,13 @@ async function main() {
     if (password)
         config('password', await getPassword(password));
     
-    await validateRoot(options.root, config);
+    validateRoot(options.root, config);
     
     if (args.showConfig)
         await showConfig();
     
-    const distribute = await simport('../server/distribute/index.js');
-    const importConfig = promisify(distribute.import);
+    const {distributeImport} = await simport('../server/distribute/import.mjs');
+    const importConfig = promisify(distributeImport);
     
     await start(options, config);
     
@@ -248,8 +256,7 @@ async function main() {
     await importConfig(config);
 }
 
-async function validateRoot(root, config) {
-    const validate = await simport(`${DIR_SERVER}validate.js`);
+function validateRoot(root, config) {
     validate.root(root, config);
     
     if (root === '/')

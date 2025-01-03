@@ -2,7 +2,7 @@
 
 module.exports = {
     extends: [
-        'plugin:putout/safe',
+        'plugin:putout/safe+align',
     ],
     plugins: [
         'putout',
@@ -10,6 +10,7 @@ module.exports = {
     ],
     rules: {
         'key-spacing': 'off',
+        'n/prefer-node-protocol': 'error',
     },
     overrides: [{
         files: ['bin/release.js'],
@@ -17,9 +18,6 @@ module.exports = {
             'no-console': 'off',
             'n/shebang': 'off',
         },
-        extends: [
-            'plugin:n/recommended',
-        ],
     }, {
         files: ['client/dom/index.js'],
         rules: {
@@ -30,9 +28,6 @@ module.exports = {
         rules: {
             'no-console': 'off',
         },
-        extends: [
-            'plugin:n/recommended',
-        ],
     }, {
         files: ['{client,common,static}/**/*.js'],
         env: {

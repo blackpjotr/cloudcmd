@@ -4,14 +4,14 @@ const {
     resolve,
     sep,
     join,
-} = require('path');
+} = require('node:path');
 
+const {env} = require('node:process');
 const {EnvironmentPlugin} = require('webpack');
 const WebpackBar = require('webpackbar');
 
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 
-const {env} = require('process');
 const modules = './modules';
 const dirModules = './client/modules';
 const dir = './client';
@@ -27,7 +27,6 @@ const notEmpty = (a) => a;
 const clean = (array) => array.filter(notEmpty);
 
 const noParse = (a) => /\.spec\.js$/.test(a);
-
 const options = {
     babelrc: true,
 };
@@ -65,6 +64,10 @@ const splitChunks = {
 module.exports = {
     resolve: {
         symlinks: false,
+        alias: {
+            'node:process': 'process',
+            'node:path': 'path',
+        },
     },
     devtool,
     optimization: {
@@ -100,7 +103,6 @@ module.exports = {
         devtoolModuleFilenameTemplate,
         publicPath: '/dist/',
     },
-    externals: [externals],
     module: {
         rules,
         noParse,
@@ -111,18 +113,6 @@ module.exports = {
         maxAssetSize: 600_000,
     },
 };
-
-function externals(context, request, fn) {
-    if (!isDev)
-        return fn();
-    
-    const list = [];
-    
-    if (list.includes(request))
-        return fn(null, request);
-    
-    fn();
-}
 
 function devtoolModuleFilenameTemplate(info) {
     const resource = info.absoluteResourcePath.replace(rootDir + sep, '');

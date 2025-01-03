@@ -2,14 +2,12 @@
 
 const DIR_SERVER = `${__dirname}/`;
 const DIR_COMMON = '../common/';
-const path = require('path');
+const path = require('node:path');
 
-const fs = require('fs');
-const Emitter = require('events');
-const {homedir} = require('os');
-const exit = require(`${DIR_SERVER}exit`);
+const fs = require('node:fs');
+const Emitter = require('node:events');
+const {homedir} = require('node:os');
 
-const CloudFunc = require(`${DIR_COMMON}cloudfunc`);
 const currify = require('currify');
 
 const wraptile = require('wraptile');
@@ -21,6 +19,10 @@ const jju = require('jju');
 const writejson = require('writejson');
 const tryCatch = require('try-catch');
 const criton = require('criton');
+const exit = require(`${DIR_SERVER}exit`);
+
+const CloudFunc = require(`${DIR_COMMON}cloudfunc`);
+
 const DIR = `${DIR_SERVER}../`;
 const HOME = homedir();
 
@@ -35,7 +37,7 @@ const ConfigPath = path.join(DIR, 'json/config.json');
 const ConfigHome = path.join(HOME, '.cloudcmd.json');
 
 const connection = currify(_connection);
-const connectionWraped = wraptile(_connection);
+const connectionWrapped = wraptile(_connection);
 const middle = currify(_middle);
 
 const readjsonSync = (name) => {
@@ -153,9 +155,9 @@ function listen(manage, sock, auth) {
         .on('connection', (socket) => {
             if (!manage('auth'))
                 return connection(manage, socket);
-        
+            
             const reject = () => socket.emit('reject');
-            socket.on('auth', auth(connectionWraped(manage, socket), reject));
+            socket.on('auth', auth(connectionWrapped(manage, socket), reject));
         });
 }
 
@@ -242,8 +244,10 @@ function cryptoPass(manage, json) {
     
     const password = criton(json.password, algo);
     
-    return [manage, {
-        ...json,
-        password,
-    }];
+    return [
+        manage, {
+            ...json,
+            password,
+        },
+    ];
 }

@@ -9,3 +9,5 @@ about something, just do as best as you're able.
 - **Browser name/version**:
 - **Used Command Line Parameters**:
 - **Changed Config**:
+- [ ] **I'm ready to donate on [Patreon](https://patreon.com/coderaiser) 🎁**
+- [ ] **I'm willing to work on this issue 💪**

@@ -7,22 +7,15 @@
         "fontello.json"
     ],
     "rules": {
-        "webpack/apply-externals": "off",
         "github/convert-npm-to-bun": "off",
-        "github/install-bun": "off"
+        "github/set-node-versions": "off"
     },
     "match": {
         "base64": {
-            "convert-typeof-to-is-type": "off"
-        },
-        "route.spec.js": {
-            "tape/convert-ok-to-match": "off"
-        },
-        "*.js": {
-            "convert-esm-to-commonjs": "on"
+            "types/convert-typeof-to-is-type": "off"
         },
         "*.md": {
-            "convert-commonjs-to-esm": "on"
+            "nodejs/convert-commonjs-to-esm": "on"
         },
         ".webpack": {
             "webpack": "on"

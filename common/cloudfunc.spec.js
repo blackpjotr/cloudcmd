@@ -1,7 +1,7 @@
 'use strict';
 
-const {join} = require('path');
-const {readFileSync} = require('fs');
+const {join} = require('node:path');
+const {readFileSync} = require('node:fs');
 
 const test = require('supertape');
 const montag = require('montag');
@@ -138,6 +138,39 @@ test('cloudfunc: getSize: file', (t) => {
     });
     
     const expected = '100.00kb';
+    
+    t.equal(result, expected);
+    t.end();
+});
+
+test('cloudfunc: buildFromJSON: showDotFiles: false', (t) => {
+    const data = {
+        path: '/media/',
+        files: [{
+            date: '30.08.2016',
+            mode: 'rwx rwx rwx',
+            name: '.floppy',
+            owner: 'root',
+            size: '7b',
+            type: 'directory-link',
+        }],
+    };
+    
+    const html = buildFromJSON({
+        prefix: '',
+        template,
+        data,
+        showDotFiles: false,
+    });
+    
+    const $ = cheerio.load(html);
+    const el = $('[data-name="js-file-LmZsb3BweQ=="]');
+    
+    const result = el
+        .find('[data-name="js-name"]')
+        .text();
+    
+    const expected = '';
     
     t.equal(result, expected);
     t.end();

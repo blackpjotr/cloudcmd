@@ -20,6 +20,11 @@
     }
 }
 
+:root {
+    --min-one-panel-width: 1155px;
+    --is-mobile: 0;
+}
+
 @media only screen and (height <= 900px) and (width <= 600px) {
     .fm {
         height: 85%;
@@ -49,6 +54,12 @@
 @media only screen and (height <= 450px) and (width <= 600px) {
     .fm {
         height: 75%;
+    }
+}
+
+@media only screen and (width <= 600px) {
+    :root {
+        --is-mobile: 1;
     }
 }
 
@@ -104,7 +115,7 @@
 
 /* iphone 6 landscape */
 @media only screen and (device-width >= 375px) and (device-width <= 667px) and (orientation: landscape),
-    @media only screen and (max-height: 360px) and (max-width: 640px) {
+    only screen and (height <= 360px) and (width <= 640px) {
     .fm {
         height: 55%;
     }
@@ -121,7 +132,7 @@
     
     /* текущий файл под курсором */
     .current-file {
-        background-color: var(--color-transparent);
+        background-color: var(--border-color);
         color: white;
     }
     /* делаем иконки под курсом белыми */
@@ -129,24 +140,28 @@
         color: white;
     }
     
-    .file::before, .file-link::before {
+    .file::before {
         color: rgb(26 224 124 / 56%);
         content: '\e80d';
     }
     
-    .current-file .file::before, .file-link::before {
-        color: white;
+    .file-link::before {
+        color: rgb(26 224 124 / 56%);
+        content: '\e81d';
     }
     
     /* меняем иконки на шрифтовые */
     .mini-icon {
-        color           : rgb(246 224 124 / 56%);
-        font            : 16px 'Fontello';
+        color: rgb(246 224 124 / 56%);
+        font: 16px 'Fontello';
         background-image: none;
-        padding         : 1%;
+        padding: 1%;
     }
     
-    .size, .date, .owner, .mode {
+    .size,
+    .date,
+    .owner,
+    .mode {
         display: none;
     }
     
@@ -155,19 +170,26 @@
         display: inline-block;
     }
     
-    .directory::before, .directory-link::before {
+    .directory::before {
         content: '\e807';
     }
     
-    .file, .file-link {
+    .directory-link::before {
+        content: '\e81e';
+    }
+    
+    .file,
+    .file-link {
         background-image: none;
     }
     
-    .archive, .archive-link {
+    .archive,
+    .archive-link {
         background-image: none;
     }
     
-    .archive::before, .archive-link {
+    .archive::before,
+    .archive-link {
         color: rgb(26 224 124 / 56%);
         content: '\e81d';
     }
@@ -200,7 +222,9 @@
         width: 98%;
     }
     /* если правая панель не помещаеться - прячем её */
-    .panel-right, .cmd-button#f5, .cmd-button#f6 {
+    .panel-right,
+    .cmd-button#f5,
+    .cmd-button#f6 {
         display: none;
     }
 }
@@ -213,7 +237,8 @@
         border: none;
     }
     
-    .keyspanel, .panel-right {
+    .keyspanel,
+    .panel-right {
         display: none;
     }
     

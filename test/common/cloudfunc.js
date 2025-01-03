@@ -1,23 +1,17 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
+
 const tryCatch = require('try-catch');
+const test = require('supertape');
+const htmlLooksLike = require('html-looks-like');
+const readFilesSync = require('@cloudcmd/read-files-sync');
+
+const {time, timeEnd} = require(`../../common/util`);
+const CloudFunc = require('../../common/cloudfunc.js');
 
 const DIR = `${__dirname}/../../`;
-const COMMONDIR = `${DIR}common/`;
 
-const {time, timeEnd} = require(`${COMMONDIR}util`);
-
-const CloudFuncPath = `${COMMONDIR}cloudfunc`;
-
-const CloudFunc = require(CloudFuncPath);
-
-const test = require('supertape');
-
-const {reRequire} = require('mock-require');
-const htmlLooksLike = require('html-looks-like');
-
-const readFilesSync = require('@cloudcmd/read-files-sync');
 const TMPLDIR = `${DIR}tmpl/`;
 
 const FS_DIR = `${TMPLDIR}fs/`;
@@ -81,11 +75,10 @@ test('cloudfunc: render', (t) => {
         .split('')
         .some((item, number) => {
             const ret = result[number] !== item;
-        
-            if (ret) {
+            
+            if (ret)
                 i = number;
-            }
-        
+            
             return ret;
         });
     
@@ -93,7 +86,6 @@ test('cloudfunc: render', (t) => {
     
     if (isNotOk) {
         console.log(`Error in char number: ${i}\n`, `Expect: ${Expect.substr(i)}\n`, `Result: ${result.substr(i)}`);
-        
         console.log('buildFromJSON: Not OK');
     }
     
@@ -127,16 +119,15 @@ test('cloudfunc: formatMsg: no name', (t) => {
 });
 
 test('cloudfunc: getTitle', (t) => {
-    const CloudFunc = reRequire(CloudFuncPath);
-    
-    const result = CloudFunc.getTitle();
+    const result = CloudFunc.getTitle({
+        path: '/',
+    });
     
     t.equal(result, 'Cloud Commander - /');
     t.end();
 });
 
 test('cloudfunc: getTitle: no name', (t) => {
-    const CloudFunc = reRequire(CloudFuncPath);
     const path = '/hello/world';
     
     const result = CloudFunc.getTitle({
@@ -148,7 +139,6 @@ test('cloudfunc: getTitle: no name', (t) => {
 });
 
 test('cloudfunc: getTitle: name, path', (t) => {
-    const CloudFunc = reRequire(CloudFuncPath);
     const name = 'hello';
     const path = '/hello/world';
     

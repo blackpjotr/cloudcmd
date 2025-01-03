@@ -1,10 +1,7 @@
 'use strict';
 
-const process = require('process');
-require('../css/main.css');
-require('../css/nojs.css');
-require('../css/columns/name-size-date.css');
-require('../css/columns/name-size.css');
+const process = require('node:process');
+require('./css');
 
 const wraptile = require('wraptile');
 const load = require('load.js');
@@ -13,7 +10,7 @@ const {registerSW, listenSW} = require('./sw/register');
 
 const isDev = process.env.NODE_ENV === 'development';
 
-module.exports = window.CloudCmd = async (config) => {
+module.exports = async (config) => {
     window.Util = require('../common/util');
     window.CloudFunc = require('../common/cloudfunc');
     
@@ -30,6 +27,7 @@ module.exports = window.CloudCmd = async (config) => {
     
     window.CloudCmd.init(prefix, config);
 };
+window.CloudCmd = module.exports;
 
 function getPrefix(prefix) {
     if (!prefix)

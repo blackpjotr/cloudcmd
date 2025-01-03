@@ -1,6 +1,6 @@
 'use strict';
 
-const process = require('process');
+const process = require('node:process');
 const {test, stub} = require('supertape');
 
 const info = require('./info');
@@ -16,6 +16,6 @@ test('cloudcmd: rest: info', (t) => {
     
     process.memoryUsage = memoryUsage;
     
-    t.ok(_memoryUsage.calledWith(), 'should call memoryUsage');
+    t.calledWithNoArgs(_memoryUsage, 'should call memoryUsage');
     t.end();
 });

@@ -55,7 +55,7 @@ const {Events} = DOM;
 
 const EventsFiles = {
     mousedown: exec.with(execIfNotUL, setCurrentFileByEvent),
-    click: execAll([onClick, unselect]),
+    click: execAll([onClick, exec.with(execIfNotMobile, unselect)]),
     dragstart: exec.with(execIfNotUL, onDragStart),
     dblclick: exec.with(execIfNotUL, onDblClick),
     touchstart: exec.with(execIfNotUL, onTouch),
@@ -178,7 +178,8 @@ function decodePath(path) {
     const {prefix} = CloudCmd;
     const prefixReg = RegExp('^' + prefix + FS);
     
-    return decodeURI(path).replace(url, '')
+    return decodeURI(path)
+        .replace(url, '')
         .replace(prefixReg, '') // browser doesn't replace % -> %25% do it for him
         .replace('%%', '%25%')
         .replace(NBSP_REG, SPACE) || '/';
@@ -218,6 +219,13 @@ function copyPath(el) {
             .parentElement.title)
         .then(CloudCmd.log)
         .catch(CloudCmd.log);
+}
+
+function execIfNotMobile(callback, event) {
+    const isMobile = DOM.getCSSVar('is-mobile');
+    
+    if (!isMobile)
+        callback(event);
 }
 
 function execIfNotUL(callback, event) {

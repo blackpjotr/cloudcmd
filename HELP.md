@@ -1,4 +1,4 @@
-# Cloud Commander v16.17.2
+# Cloud Commander v18.4.1
 
 ### [Main][MainURL] [Blog][BlogURL] [Support][SupportURL] [Demo][DemoURL]
 
@@ -59,81 +59,83 @@ cloudcmd
 
 Cloud Commander supports the following command-line parameters:
 
-|Parameter                      |Operation
-|:------------------------------|:------------------------------
-| `-h, --help`                  | display help and exit
-| `-v, --version`               | display version and exit
-| `-s, --save`                  | save configuration
-| `-o, --online`                | load scripts from remote servers
-| `-a, --auth`                  | enable authorization
-| `-u, --username`              | set username
-| `-p, --password`              | set password
-| `-c, --config`                | configuration file path
-| `--show-config`               | show config values
-| `--show-file-name`            | show file name in view and edit
-| `--editor`                    | set editor: "dword", "edward" or "deepword"
-| `--packer`                    | set packer: "tar" or "zip"
-| `--root`                      | set root directory
-| `--prefix`                    | set url prefix
-| `--prefix-socket`             | set prefix for url connection
-| `--port`                      | set port number
-| `--confirm-copy`              | confirm copy
-| `--confirm-move`              | confirm move
-| `--open`                      | open web browser when server starts
-| `--name`                      | set tab name in web browser
-| `--one-file-panel`            | show one file panel
-| `--keys-panel`                | show keys panel
-| `--contact`                   | enable contact
-| `--config-dialog`             | enable config dialog
-| `--config-auth`               | enable auth change in config dialog
-| `--console`                   | enable console
-| `--sync-console-path`         | sync console path
-| `--terminal`                  | enable terminal
-| `--terminal-path`             | set terminal path
-| `--terminal-command`          | set command to run in terminal (shell by default)
-| `--terminal-auto-restart`     | restart command on exit
-| `--vim`                       | enable vim hot keys
-| `--columns`                   | set visible columns
-| `--export`                    | enable export of config through a server
-| `--export-token`              | authorization token used by export server
-| `--import`                    | enable import of config
-| `--import-token`              | authorization  token used to connect to export server
-| `--import-url`                | url of an import server
-| `--import-listen`             | enable listen on config updates from import server
-| `--dropbox`                   | enable dropbox integration
-| `--dropbox-token`             | set dropbox token
-| `--log`                       | enable logging
-| `--no-show-config`            | do not show config values
-| `--no-server`                 | do not start server
-| `--no-auth`                   | disable authorization
-| `--no-online`                 | load scripts from local server
-| `--no-open`                   | do not open web browser when server started
-| `--no-name`                   | set default tab name in web browser
-| `--no-keys-panel`             | hide keys panel
-| `--no-one-file-panel`         | show two file panels
-| `--no-confirm-copy`           | do not confirm copy
-| `--no-confirm-move`           | do not confirm move
-| `--no-config-dialog`          | disable config dialog
-| `--no-config-auth`            | disable auth change in config dialog
-| `--no-console`                | disable console
-| `--no-sync-console-path`      | do not sync console path
-| `--no-contact`                | disable contact
-| `--no-terminal`               | disable terminal
-| `--no-terminal-command`       | set default shell to run in terminal
-| `--no-terminal-auto-restart`  | do not restart command on exit
-| `--no-vim`                    | disable vim hot keys
-| `--no-columns`                | set default visible columns
-| `--no-export`                 | disable export config through a server
-| `--no-import`                 | disable import of config
-| `--no-import-listen`          | disable listen on config updates from import server
-| `--no-show-file-name`         | do not show file name in view and edit
-| `--no-dropbox`                | disable dropbox integration
-| `--no-dropbox-token`          | unset dropbox token
-| `--no-log`                    | disable logging
+| Parameter                    |Operation
+|:-----------------------------|:------------------------------
+| `-h, --help`                 | display help and exit
+| `-v, --version`              | display version and exit
+| `-s, --save`                 | save configuration
+| `-o, --online`               | load scripts from remote servers
+| `-a, --auth`                 | enable authorization
+| `-u, --username`             | set username
+| `-p, --password`             | set password
+| `-c, --config`               | configuration file path
+| `--show-config`              | show config values
+| `--show-dot-files`           | show dot files
+| `--show-file-name`           | show file name in view and edit
+| `--editor`                   | set editor: "dword", "edward" or "deepword"
+| `--packer`                   | set packer: "tar" or "zip"
+| `--root`                     | set root directory
+| `--prefix`                   | set url prefix
+| `--prefix-socket`            | set prefix for url connection
+| `--port`                     | set port number
+| `--confirm-copy`             | confirm copy
+| `--confirm-move`             | confirm move
+| `--open`                     | open web browser when server starts
+| `--name`                     | set tab name in web browser
+| `--one-file-panel`           | show one file panel
+| `--keys-panel`               | show keys panel
+| `--contact`                  | enable contact
+| `--config-dialog`            | enable config dialog
+| `--config-auth`              | enable auth change in config dialog
+| `--console`                  | enable console
+| `--sync-console-path`        | sync console path
+| `--terminal`                 | enable terminal
+| `--terminal-path`            | set terminal path
+| `--terminal-command`         | set command to run in terminal (shell by default)
+| `--terminal-auto-restart`    | restart command on exit
+| `--vim`                      | enable vim hot keys
+| `--columns`                  | set visible columns
+| `--theme`                    | set theme 'light' or 'dark'"
+| `--export`                   | enable export of config through a server
+| `--export-token`             | authorization token used by export server
+| `--import`                   | enable import of config
+| `--import-token`             | authorization  token used to connect to export server
+| `--import-url`               | url of an import server
+| `--import-listen`            | enable listen on config updates from import server
+| `--dropbox`                  | enable dropbox integration
+| `--dropbox-token`            | set dropbox token
+| `--log`                      | enable logging
+| `--no-show-config`           | do not show config values
+| `--no-server`                | do not start server
+| `--no-auth`                  | disable authorization
+| `--no-online`                | load scripts from local server
+| `--no-open`                  | do not open web browser when server started
+| `--no-name`                  | set default tab name in web browser
+| `--no-keys-panel`            | hide keys panel
+| `--no-one-file-panel`        | show two file panels
+| `--no-confirm-copy`          | do not confirm copy
+| `--no-confirm-move`          | do not confirm move
+| `--no-config-dialog`         | disable config dialog
+| `--no-config-auth`           | disable auth change in config dialog
+| `--no-console`               | disable console
+| `--no-sync-console-path`     | do not sync console path
+| `--no-contact`               | disable contact
+| `--no-terminal`              | disable terminal
+| `--no-terminal-command`      | set default shell to run in terminal
+| `--no-terminal-auto-restart` | do not restart command on exit
+| `--no-vim`                   | disable vim hot keys
+| `--no-themes`                | set default visible themes
+| `--no-export`                | disable export config through a server
+| `--no-import`                | disable import of config
+| `--no-import-listen`         | disable listen on config updates from import server
+| `--no-show-file-name`        | do not show file name in view and edit
+| `--no-dropbox`               | disable dropbox integration
+| `--no-dropbox-token`         | unset dropbox token
+| `--no-log`                   | disable logging
 
 For options not specified by command-line parameters, Cloud Commander then reads configuration data from `~/.cloudcmd.json`. It uses port `8000` by default.
 
-To begin using the web client, go to this URL in your browser:
+To begin using the web client, go to this PREFIX in your browser:
 
 ```
 http://localhost:8000
@@ -151,56 +153,57 @@ Then, start the server again with `cloudcmd` and reload the page.
 
 ## Hot keys
 
-|Key                    |Operation
-|:----------------------|:--------------------------------------------
-| `F1`                  | help
-| `F2`                  | show `user menu`
-| `F3`                  | view, change directory
-| `Shift + F3`          | view raw file, change directory
-| `F4`                  | edit
-| `F5`                  | copy
-| `Alt` + `F5`          | pack
-| `F6`                  | rename/move
-| `Shift` + `F6`        | rename current file
-| `F7`                  | new directory
-| `Shift + F7`          | new file
-| `F8`, `Delete`        | remove
-| `Shift + Delete`      | remove without prompt
-| `F9`                  | menu
-| `Alt` + `F9`          | extract
-| `F10`                 | config
-| `*`                   | select/unselect all
-| `+`                   | expand selection
-| `-`                   | shrink selection
-| `:`                   | open Command Line
-| `Ctrl + X`            | cut to buffer
-| `Ctrl + C`            | copy to buffer
-| `Ctrl + V`            | paste from buffer
-| `Ctrl + Z`            | clear buffer
-| `Ctrl + P`            | copy path
-| `Ctrl + R`            | refresh
-| `Ctrl + D`            | clear local storage
-| `Ctrl + A`            | select all files in a panel
-| `Ctrl + M`            | [rename selected files](https://github.com/coderaiser/cloudcmd/releases/tag/v12.1.0) in editor
-| `Ctrl + U`            | swap panels
-| `Ctrl + F3`           | sort by name
-| `Ctrl + F5`           | sort by date
-| `Ctrl + F6`           | sort by size
-| `Up`, `Down`          | file system navigation
-| `Enter`               | change directory/view file
-| `Alt + Left/Right`    | show content of directory under cursor in target panel
-| `Alt + G`             | go to directory
-| `Ctrl + \`            | go to the root directory
-| `Tab`                 | move via panels
-| `Page Up`             | up on one page
-| `Page Down`           | down on one page
-| `Home`                | to begin of list
-| `End`                 | to end of list
-| `Space`               | select current file (and get size of directory)
-| `Insert`              | select current file (and move to next)
-| `F9`                  | context menu
-| `~`                   | console
-| `Esc`                 | toggle vim hotkeys (`file manager`, `editor`)
+| Key                  |Operation
+|:---------------------|:--------------------------------------------
+| `F1`                 | help
+| `F2`                 | show `user menu`
+| `F3`                 | view, change directory
+| `Shift + F3`         | view raw file, change directory
+| `F4`                 | edit
+| `F5`                 | copy
+| `Alt` + `F5`         | pack
+| `F6`                 | rename/move
+| `Shift` + `F6`       | rename current file
+| `F7`                 | new directory
+| `Shift + F7`         | new file
+| `F8`, `Delete`       | remove
+| `Shift + Delete`     | remove without prompt
+| `F9`                 | menu
+| `Alt` + `F9`         | extract
+| `F10`                | config
+| `*`                  | select/unselect all
+| `+`                  | expand selection
+| `-`                  | shrink selection
+| `:`                  | open Command Line
+| `Ctrl + X`           | cut to buffer
+| `Ctrl + C`           | copy to buffer
+| `Ctrl + V`           | paste from buffer
+| `Ctrl + Z`           | clear buffer
+| `Ctrl + P`           | copy path
+| `Ctrl + R`           | refresh
+| `Ctrl + D`           | clear local storage
+| `Ctrl + A`           | select all files in a panel
+| `Ctrl + M`           | [rename selected files](https://github.com/coderaiser/cloudcmd/releases/tag/v12.1.0) in editor
+| `Ctrl + U`           | swap panels
+| `Ctrl + F3`          | sort by name
+| `Ctrl + F5`          | sort by date
+| `Ctrl + F6`          | sort by size
+| `Ctrl + Command + .` | show/hide dot files
+| `Up`, `Down`         | file system navigation
+| `Enter`              | change directory/view file
+| `Alt + Left/Right`   | show content of directory under cursor in target panel
+| `Alt + G`            | go to directory
+| `Ctrl + \`           | go to the root directory
+| `Tab`                | move via panels
+| `Page Up`            | up on one page
+| `Page Down`          | down on one page
+| `Home`               | to begin of list
+| `End`                | to end of list
+| `Space`              | select current file (and get size of directory)
+| `Insert`             | select current file (and move to next)
+| `F9`                 | context menu
+| `~`                  | console
+| `Esc`                | toggle vim hotkeys (`file manager`, `editor`)
 
 ### Vim
 
@@ -397,6 +400,7 @@ Here's a description of all options:
     "confirmCopy": true, // confirm copy
     "confirmMove": true, // confirm move
     "showConfig": false, // show config at startup
+    "showDotFiles": true, // show dot files
     "showFileName": false, // do not show file name in view and edit
     "contact": true, // enable contact
     "configDialog": true, // enable config dialog
@@ -408,7 +412,7 @@ Here's a description of all options:
     "terminalCommand": "", // set command to run in terminal
     "terminalAutoRestart": true, // restart command on exit
     "vim": false, // disable vim hot keys
-    "columns": "name-size-date-owner-mode", // set visible columns
+    "themes": "name-size-date-owner-mode", // set visible themes
     "export": false, // enable export of config through a server
     "exportToken": "root", // token used by export server
     "import": false, // enable import of config
@@ -428,7 +432,8 @@ Some config options can be overridden with environment variables, such as:
 - `CLOUDCMD_NAME` - set tab name in web browser
 - `CLOUDCMD_OPEN` - open web browser when server started
 - `CLOUDCMD_EDITOR` - set editor
-- `CLOUDCMD_COLUMNS` - set visible columns
+- `CLOUDCMD_COLUMNS` - set visible themes
+- `CLOUDCMD_THEME` - set themes "light" or "dark"
 - `CLOUDCMD_CONTACT` - enable contact
 - `CLOUDCMD_CONFIG_DIALOG` - enable config dialog
 - `CLOUDCMD_CONFIG_AUTH` - enable auth change in config dialog
@@ -1093,6 +1098,49 @@ There are a lot of ways to be involved in `Cloud Commander` development:
 
 ## Version history
 
+- *2024.12.13*, **[v18.4.1](//github.com/coderaiser/cloudcmd/releases/tag/v18.4.1)**
+- *2024.11.22*, **[v18.4.0](//github.com/coderaiser/cloudcmd/releases/tag/v18.4.0)**
+- *2024.11.14*, **[v18.3.0](//github.com/coderaiser/cloudcmd/releases/tag/v18.3.0)**
+- *2024.11.06*, **[v18.2.1](//github.com/coderaiser/cloudcmd/releases/tag/v18.2.1)**
+- *2024.10.27*, **[v18.2.0](//github.com/coderaiser/cloudcmd/releases/tag/v18.2.0)**
+- *2024.08.17*, **[v18.1.0](//github.com/coderaiser/cloudcmd/releases/tag/v18.1.0)**
+- *2024.08.16*, **[v18.0.2](//github.com/coderaiser/cloudcmd/releases/tag/v18.0.2)**
+- *2024.08.16*, **[v18.0.1](//github.com/coderaiser/cloudcmd/releases/tag/v18.0.1)**
+- *2024.08.16*, **[v18.0.0](//github.com/coderaiser/cloudcmd/releases/tag/v18.0.0)**
+- *2024.08.16*, **[v17.4.4](//github.com/coderaiser/cloudcmd/releases/tag/v17.4.4)**
+- *2024.07.27*, **[v17.4.3](//github.com/coderaiser/cloudcmd/releases/tag/v17.4.3)**
+- *2024.07.03*, **[v17.4.2](//github.com/coderaiser/cloudcmd/releases/tag/v17.4.2)**
+- *2024.05.06*, **[v17.4.1](//github.com/coderaiser/cloudcmd/releases/tag/v17.4.1)**
+- *2024.04.17*, **[v17.4.0](//github.com/coderaiser/cloudcmd/releases/tag/v17.4.0)**
+- *2024.04.03*, **[v17.3.3](//github.com/coderaiser/cloudcmd/releases/tag/v17.3.3)**
+- *2024.03.29*, **[v17.3.2](//github.com/coderaiser/cloudcmd/releases/tag/v17.3.2)**
+- *2024.03.29*, **[v17.3.1](//github.com/coderaiser/cloudcmd/releases/tag/v17.3.1)**
+- *2024.03.29*, **[v17.3.0](//github.com/coderaiser/cloudcmd/releases/tag/v17.3.0)**
+- *2024.03.29*, **[v17.2.1](//github.com/coderaiser/cloudcmd/releases/tag/v17.2.1)**
+- *2024.03.22*, **[v17.2.0](//github.com/coderaiser/cloudcmd/releases/tag/v17.2.0)**
+- *2024.03.21*, **[v17.1.6](//github.com/coderaiser/cloudcmd/releases/tag/v17.1.6)**
+- *2024.03.20*, **[v17.1.5](//github.com/coderaiser/cloudcmd/releases/tag/v17.1.5)**
+- *2024.03.20*, **[v17.1.4](//github.com/coderaiser/cloudcmd/releases/tag/v17.1.4)**
+- *2024.03.18*, **[v17.1.3](//github.com/coderaiser/cloudcmd/releases/tag/v17.1.3)**
+- *2024.03.18*, **[v17.1.2](//github.com/coderaiser/cloudcmd/releases/tag/v17.1.2)**
+- *2024.03.16*, **[v17.1.1](//github.com/coderaiser/cloudcmd/releases/tag/v17.1.1)**
+- *2024.03.16*, **[v17.1.0](//github.com/coderaiser/cloudcmd/releases/tag/v17.1.0)**
+- *2024.03.12*, **[v17.0.7](//github.com/coderaiser/cloudcmd/releases/tag/v17.0.7)**
+- *2024.03.11*, **[v17.0.6](//github.com/coderaiser/cloudcmd/releases/tag/v17.0.6)**
+- *2024.03.11*, **[v17.0.5](//github.com/coderaiser/cloudcmd/releases/tag/v17.0.5)**
+- *2024.02.02*, **[v17.0.4](//github.com/coderaiser/cloudcmd/releases/tag/v17.0.4)**
+- *2024.02.01*, **[v17.0.3](//github.com/coderaiser/cloudcmd/releases/tag/v17.0.3)**
+- *2024.02.01*, **[v17.0.2](//github.com/coderaiser/cloudcmd/releases/tag/v17.0.2)**
+- *2024.01.25*, **[v17.0.1](//github.com/coderaiser/cloudcmd/releases/tag/v17.0.1)**
+- *2023.12.12*, **[v17.0.0](//github.com/coderaiser/cloudcmd/releases/tag/v17.0.0)**
+- *2023.12.08*, **[v16.18.0](//github.com/coderaiser/cloudcmd/releases/tag/v16.18.0)**
+- *2023.12.04*, **[v16.17.9](//github.com/coderaiser/cloudcmd/releases/tag/v16.17.9)**
+- *2023.12.04*, **[v16.17.8](//github.com/coderaiser/cloudcmd/releases/tag/v16.17.8)**
+- *2023.10.12*, **[v16.17.7](//github.com/coderaiser/cloudcmd/releases/tag/v16.17.7)**
+- *2023.09.22*, **[v16.17.6](//github.com/coderaiser/cloudcmd/releases/tag/v16.17.6)**
+- *2023.09.06*, **[v16.17.5](//github.com/coderaiser/cloudcmd/releases/tag/v16.17.5)**
+- *2023.09.05*, **[v16.17.4](//github.com/coderaiser/cloudcmd/releases/tag/v16.17.4)**
+- *2023.09.05*, **[v16.17.3](//github.com/coderaiser/cloudcmd/releases/tag/v16.17.3)**
 - *2023.09.04*, **[v16.17.2](//github.com/coderaiser/cloudcmd/releases/tag/v16.17.2)**
 - *2023.09.04*, **[v16.17.1](//github.com/coderaiser/cloudcmd/releases/tag/v16.17.1)**
 - *2023.09.04*, **[v16.17.0](//github.com/coderaiser/cloudcmd/releases/tag/v16.17.0)**
@@ -1520,7 +1568,7 @@ There are a lot of ways to be involved in `Cloud Commander` development:
 
 ## Special Thanks
 
-- [Olena Zalitok](http://www.linkedin.com/in/olena-zalitok-ux-designer "Olena Zalitok") for **logo** and **favicon**.
+- [Olena Zalitok](https://www.linkedin.com/in/ozalitok-ux-ui/ "Olena Zalitok") for **logo** and **favicon**.
 - [TarZak](https://github.com/tarzak "TarZak")
   - Russian and Ukrainian translations;
   - config template and style;

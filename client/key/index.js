@@ -2,16 +2,15 @@
 
 /* global CloudCmd, DOM */
 const clipboard = require('@cloudcmd/clipboard');
+const fullstore = require('fullstore');
 
 const Buffer = require('../dom/buffer');
-
 const Events = require('../dom/events');
 const KEY = require('./key');
 
 const vim = require('./vim');
 const setCurrentByChar = require('./set-current-by-char');
 const {createBinder} = require('./binder');
-const fullstore = require('fullstore');
 
 const Info = DOM.CurrentInfo;
 const Chars = fullstore();
@@ -19,9 +18,8 @@ const Chars = fullstore();
 const toggleVim = (keyCode) => {
     const {_config, config} = CloudCmd;
     
-    if (keyCode === KEY.ESC) {
+    if (keyCode === KEY.ESC)
         _config('vim', !config('vim'));
-    }
 };
 
 const isUndefined = (a) => typeof a === 'undefined';
@@ -29,7 +27,6 @@ const isUndefined = (a) => typeof a === 'undefined';
 Chars([]);
 
 const {assign} = Object;
-
 const binder = createBinder();
 
 module.exports = assign(binder, KEY);
@@ -510,6 +507,18 @@ async function switchKey(event) {
             await DOM.Storage.clear();
             CloudCmd.log('storage cleared');
             event.preventDefault();
+        }
+        
+        break;
+    
+    case KEY.DOT:
+        if (meta && shift) {
+            const showDotFiles = !CloudCmd.config('showDotFiles');
+            CloudCmd._config('showDotFiles', showDotFiles);
+            CloudCmd.refresh();
+            await DOM.RESTful.Config.write({
+                showDotFiles,
+            });
         }
         
         break;
